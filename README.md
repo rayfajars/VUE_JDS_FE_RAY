@@ -1,30 +1,13 @@
-# jds_ray_fajar
+# component form :
+https://github.com/rayfajars/vue_jds_fe_ray/blob/master/src/components/FormBantuan.vue
 
-> A Vue.js project
 
-## Build Setup
+# url published dengan surge :
+http://historical-porter.surge.sh/
 
-``` bash
-# install dependencies
-npm install
+# HASIL 
 
-# serve with hot reload at localhost:8080
-npm run dev
+![hasil code](https://user-images.githubusercontent.com/58242304/108626164-64762680-7481-11eb-8407-5266526af1f5.JPG)
 
-# build for production with minification
-npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
 
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
