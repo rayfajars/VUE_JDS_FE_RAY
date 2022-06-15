@@ -3,7 +3,7 @@
     <div class="row">
       <div class="mx-auto col-sm-10">
         <div class="card">
-          <div class="card-header">
+          <div class="card-header bg-primary text-white">
             <h4 class="mb-0">Form Bantuan Warga Dampak Pandemi Covid-19</h4>
             <h4 class="mt-2">Komplek Panghegar</h4>
           </div>
@@ -120,6 +120,87 @@
                     >
                     <option value="laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label"
+                  >Provinsi</label
+                >
+                <div class="col-lg-9">
+                  <select
+                    name="province"
+                    class="form-control"
+                    required
+                    v-model="province"
+                    @change="provinsiChange($event)"
+                  >
+                    <option value="" disabled selected>Pilih Provinsi</option>
+                    <option
+                      v-for="provinceArrs in provinceArr"
+                      :value="provinceArrs.id"
+                      >{{ provinceArrs.name }}</option
+                    >
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label"
+                  >Kota</label
+                >
+                <div class="col-lg-9">
+                  <select
+                    name="kota"
+                    class="form-control"
+                    required
+                    v-model="kota"
+                    @change="kotaChange($event)"
+                  >
+                    <option value="" disabled selected>Pilih Kota</option>
+                    <option v-for="kotaArrs in kotaArr" :value="kotaArrs.id">{{
+                      kotaArrs.name
+                    }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label"
+                  >Kecamatan</label
+                >
+                <div class="col-lg-9">
+                  <select
+                    name="kecamatan"
+                    class="form-control"
+                    required
+                    v-model="kecamatan"
+                    @change="kecamatanChange($event)"
+                  >
+                    <option value="" disabled selected>Pilih Kecamatan</option>
+                    <option
+                      v-for="kecamatanArrs in kecamatanArr"
+                      :value="kecamatanArrs.id"
+                      >{{ kecamatanArrs.name }}</option
+                    >
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label"
+                  >kelurahan</label
+                >
+                <div class="col-lg-9">
+                  <select
+                    name="kelurahan"
+                    class="form-control"
+                    required
+                    v-model="kelurahan"
+                  >
+                    <option value="" disabled selected>Pilih Kelurahan</option>
+                    <option
+                      v-for="kelurahanArrs in kelurahanArr"
+                      :value="kelurahanArrs.id"
+                      >{{ kelurahanArrs.name }}</option
+                    >
                   </select>
                 </div>
               </div>
@@ -293,7 +374,15 @@ export default {
       penghasilan_sesudah: "",
       alasan: "",
       persetujuan: "",
-      alasanlainnya: ""
+      alasanlainnya: "",
+      provinceArr: [],
+      province: "",
+      kotaArr: [],
+      kota: "",
+      kecamatanArr: [],
+      kecamatan: "",
+      kelurahanArr: [],
+      kelurahan: ""
     };
   },
   mounted() {
@@ -333,7 +422,11 @@ export default {
           penghasilan_sebelum: this.penghasilan_sebelum,
           penghasilan_sesudah: this.penghasilan_sesudah,
           alasan: isi_alasan,
-          persetujuan: this.persetujuan
+          persetujuan: this.persetujuan,
+          province: this.province,
+          kota: this.kota,
+          kecamatan: this.kecamatan,
+          kelurahan: this.kelurahan
         };
         console.log(formBantuan);
         alert("Sukses mengirim Data!");
@@ -344,11 +437,54 @@ export default {
     onChange(event) {
       console.log(event.target.value);
     },
+
     drawData() {
       axios
         .get(`provinces.json`)
         .then(response => {
-          console.log(response.data);
+          this.provinceArr = response.data;
+        })
+        .catch(error =>
+          // handle error
+          console.log(error)
+        );
+    },
+    provinsiChange(event) {
+      var data = event.target.value;
+      axios
+        .get(`regencies/${data}.json`)
+        .then(response => {
+          this.kota = "";
+          this.kecamatan = "";
+          this.kelurahan = "";
+          this.kotaArr = response.data;
+        })
+        .catch(error =>
+          // handle error
+          console.log(error)
+        );
+    },
+    kotaChange(event) {
+      var data = event.target.value;
+      axios
+        .get(`districts/${data}.json`)
+        .then(response => {
+          this.kecamatan = "";
+          this.kelurahan = "";
+          this.kecamatanArr = response.data;
+        })
+        .catch(error =>
+          // handle error
+          console.log(error)
+        );
+    },
+    kecamatanChange(event) {
+      var data = event.target.value;
+      axios
+        .get(`villages/${data}.json`)
+        .then(response => {
+          this.kelurahan = "";
+          this.kelurahanArr = response.data;
         })
         .catch(error =>
           // handle error
