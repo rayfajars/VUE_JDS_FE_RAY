@@ -3,7 +3,7 @@ https://github.com/rayfajars/vue_jds_fe_ray/blob/master/src/components/FormBantu
 
 
 # url published dengan surge :
-[http://historical-porter.surge.sh/](http://disgusting-button.surge.sh/)
+http://disgusting-button.surge.sh/
 
 # HASIL 
 
